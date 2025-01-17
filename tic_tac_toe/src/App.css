@@ -72,3 +72,27 @@ body {
 .game-info button:hover {
   background-color: hsl(256, 100%, 80%);
 }
+
+.forX {
+  transition: 0.5s background-color ease;
+}
+
+.forX:hover {
+  background-color: hsl(12, 100%, 54%);
+}
+
+.forO {
+  transition: 0.5s background-color ease;
+}
+
+.forO:hover {
+  background-color: hsl(193, 100%, 54%);
+}
+
+.winningX {
+  background-color: hsl(12, 100%, 54%);
+}
+
+.winningO {
+  background-color: hsl(193, 100%, 54%);
+}

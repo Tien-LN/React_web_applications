@@ -4,7 +4,7 @@ import Square from "./Square";
 
 export default function Board({squares, XisNext, onPlay}) {
 
-    const winner = calculateWinner(squares);
+    const {winner, winningSquares} = calculateWinner(squares);
     let status;
     if(winner) {
         status = "Winner: " + winner;
@@ -28,35 +28,35 @@ export default function Board({squares, XisNext, onPlay}) {
             [1,4,7],
             [2,5,8],
             [0,4,8],
-            [3,4,6]
+            [2,4,6]
         ]
     
         for(let i=0; i < lines.length ; i++)
         {
             const [a, b, c] = lines[i];
             if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c])
-                return squares[a];
+                return {winner : squares[a], winningSquares : lines[i]};
         }
-        return null;
+        return {winner : null, winningSquares : []};
     }
 
     return(
         <div className="board">
             <h2 className="status">{status}</h2>
             <div className="board-row">
-                <Square value={squares[0]} onclickSquare={(e) => handleSquareClick(0,e)}/>
-                <Square value={squares[1]} onclickSquare={(e) => handleSquareClick(1,e)}/>
-                <Square value={squares[2]} onclickSquare={(e) => handleSquareClick(2,e)}/>
+                <Square value={squares[0]} onclickSquare={() => handleSquareClick(0)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(0)} />
+                <Square value={squares[1]} onclickSquare={() => handleSquareClick(1)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(1)} />
+                <Square value={squares[2]} onclickSquare={() => handleSquareClick(2)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(2)} />
             </div>
             <div className="board-row">
-                <Square value={squares[3]} onclickSquare={(e) => handleSquareClick(3,e)}/>
-                <Square value={squares[4]} onclickSquare={(e) => handleSquareClick(4,e)}/>
-                <Square value={squares[5]} onclickSquare={(e) => handleSquareClick(5,e)}/>
+                <Square value={squares[3]} onclickSquare={() => handleSquareClick(3)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(3)} />
+                <Square value={squares[4]} onclickSquare={() => handleSquareClick(4)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(4)} />
+                <Square value={squares[5]} onclickSquare={() => handleSquareClick(5)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(5)} />
             </div>
             <div className="board-row">
-                <Square value={squares[6]} onclickSquare={(e) => handleSquareClick(6,e)}/>
-                <Square value={squares[7]} onclickSquare={(e) => handleSquareClick(7,e)}/>
-                <Square value={squares[8]} onclickSquare={(e) => handleSquareClick(8,e)}/>
+                <Square value={squares[6]} onclickSquare={() => handleSquareClick(6)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(6)} />
+                <Square value={squares[7]} onclickSquare={() => handleSquareClick(7)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(7)} />
+                <Square value={squares[8]} onclickSquare={() => handleSquareClick(8)} XisNext={XisNext} gameEnded={winner != null} isWinningSquare={winningSquares.includes(8)} />
             </div>
         </div>
     );
