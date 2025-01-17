@@ -6,7 +6,7 @@ export default function Square({value,onclickSquare, XisNext, gameEnded, isWinni
     return(
         <button className = {`
                               square 
-                              ${ (XisNext && !gameEnded) ? 'forX' : 'forO' }
+                              ${ !gameEnded ? `${(XisNext) ? 'forX' : 'forO'}` : ''}
                               ${ isWinningSquare ? `winning${!XisNext ? 'X' : 'O'}` : ''}
                               `
                             } 
