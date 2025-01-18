@@ -38,7 +38,7 @@ function App() {
     <>
       <div className='game'>
         <div>
-          <Board squares={currentSquare} XisNext={XisNext} onPlay={handlePlay} />
+          <Board squares={currentSquare} XisNext={XisNext} onPlay={handlePlay} count={history.length - 1}/>
         </div>
         <div className='game-info'>
             <ol>

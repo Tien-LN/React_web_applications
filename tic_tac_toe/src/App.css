@@ -90,9 +90,19 @@ body {
 }
 
 .winningX {
+  transition: 1.5s background-color ease;
   background-color: hsl(12, 100%, 54%);
+  color: gold;
 }
 
 .winningO {
+  transition: 1.5s background-color ease;
   background-color: hsl(193, 100%, 54%);
+  color: gold;
+}
+
+.tieCase {
+  transition: 1.5s background-color ease;
+  background-color: hsl(57, 100%, 60%);
+  color: black;
 }
