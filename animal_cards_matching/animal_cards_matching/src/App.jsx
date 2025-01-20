@@ -12,13 +12,41 @@ function App() {
       const j = Math.floor(Math.random() * (i + 1));
       [imgArray[i], imgArray[j]] = [imgArray[j], imgArray[i]];
     }
-    setIndexImg[imgArray];
+    setIndexImg(imgArray);
     setSquares(Array(100).fill(null));
   }, []);
 
+  function handleSquareClick(index){
+    if(squares[index]) return; // if the square is already selected, do nothing
+
+    if(selectedSquare === null){ 
+      setSelectedSquare(index);
+    } else {
+      if(selectedSquare === index) {
+        setSelectedSquare(null);
+      } else {
+        if(indexImg[selectedSquare] === indexImg[index]) {
+          const newSquares = [...squares];
+          newSquares[index] = indexImg[index];
+          newSquares[selectedSquare] = indexImg[selectedSquare];
+          setSquares(newSquares);
+        }
+        setSelectedSquare(null);
+      }
+    }
+  }
+
   return (
     <>
-      {/* Add your JSX content here */}
+      <div className='board'>
+        {
+          squares.map((_,index) => (
+            <div key = {index} className='square' onClick = {() => handleSquareClick(index)}>
+              {squares[index] && <img src={`/pictures/p${squares[index]}.png`} alt={`Animal ${squares[index]}`} />}
+            </div>
+          ))
+        }
+      </div>
     </>
   )
 }
