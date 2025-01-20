@@ -104,5 +104,5 @@ body {
 .tieCase {
   transition: 1.5s background-color ease;
   background-color: hsl(57, 100%, 60%);
-  color: black;
+  color: blacks;
 }
