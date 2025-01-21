@@ -16,7 +16,10 @@
     }, []);
 
     function handleSquareClick(index) {
-      if(selectedIndex === index) return;
+      if(selectedIndex === index) {
+        setSelectedIndex(null);
+        return;
+      }
       if(selectedIndex === null) {
         setSelectedIndex(index);
       } else {
@@ -38,7 +41,7 @@
             matrix={imgIndex} 
             index={i} 
             onSquareClick={() => handleSquareClick(i)}
-            isSelected={i === selectedIndex}
+            isSelected={(i === selectedIndex)}
           />
         ))}
       </div>
