@@ -18,6 +18,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
+    margin-right: 60px;
 }
 
 .square {
@@ -47,4 +48,66 @@ body {
 .square img.hide {
     opacity: 0;
     visibility: hidden;
+}
+
+.App {
+    display: flex;
+    justify-content: space-between;
+}
+
+.game-mode {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    background-color: rgba(93, 88, 88, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.game-mode h1 {
+    width: 100%;
+    text-align: left;
+}
+
+.TimerDisplay {
+    font-size: 3em;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.countdown-watch {
+    background-color: #FFFBCB;
+    background-color: rgba(93, 88, 88, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.countdown-watch-display {
+    width: 80%;
+
+}
+
+.countdown-watch-selections {
+    width: 60%;
+    height: 30px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.stop-watch {
+    background-color: #FFFBCB;
+    background-color: rgba(93, 88, 88, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

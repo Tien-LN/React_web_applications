@@ -1,19 +1,25 @@
   import { useState, useEffect } from 'react'
   import './App.css'
   import Square from './Square'
-
+  import {CountDownWatch} from './Count_down_watch'
+  import StopWatch from './Stop_Watch'
+  
   function App() {
     const [imgIndex, setImgIndex] = useState([]);
     const [selectedIndex, setSelectedIndex] = useState(null);
+    const [squaresLeft, setSquaresLeft] = useState(100);
+    const [isGameOver, setIsGameOver] = useState(false);
     
-    useEffect(() => {
+    const handleGameStart = () => {
+      setIsGameOver(false);
+      setSquaresLeft(100);
       const newImgIndex = Array.from({length:100}, (_,i) => (Math.floor(i/2) + 1));
-      for(let i = newImgIndex.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [newImgIndex[i], newImgIndex[j]] = [newImgIndex[j], newImgIndex[i]];
-      }
+      // for(let i = newImgIndex.length - 1; i > 0; i--) {
+      //   const j = Math.floor(Math.random() * (i + 1));
+      //   [newImgIndex[i], newImgIndex[j]] = [newImgIndex[j], newImgIndex[i]];
+      // }
       setImgIndex(newImgIndex);
-    }, []);
+    };
 
     function handleSquareClick(index) {
       if(selectedIndex === index) {
@@ -28,22 +34,43 @@
           newImgIndex[selectedIndex] = null;
           newImgIndex[index] = null;
           setImgIndex(newImgIndex);
+          const newSquaresLeft = squaresLeft - 2;
+          setSquaresLeft(newSquaresLeft);
+          if(newSquaresLeft === 0) {
+            setIsGameOver(true);
+            return;
+          }
         } 
         setSelectedIndex(null);
       }
     }
 
+    const handleGameOver = () => {
+      setIsGameOver(true);
+    }
+
     return (
-      <div className='Board'>
-        {imgIndex.map((value, i) => (
-          <Square 
-            key={i} 
-            matrix={imgIndex} 
-            index={i} 
-            onSquareClick={() => handleSquareClick(i)}
-            isSelected={(i === selectedIndex)}
-          />
-        ))}
+      <div className='App'>
+        <div className='Board'>
+          {isGameOver ? (
+            <h1 className='game-over'>Game Over</h1>
+          ) : (
+            imgIndex.map((value, i) => (
+              <Square
+                key={i}
+                matrix={imgIndex}
+                index={i}
+                onSquareClick={() => handleSquareClick(i)}
+                isSelected={(i === selectedIndex)}
+              />
+            ))
+          )}
+        </div>
+        <div className='game-mode'>
+          <h1 style={{textAlign: 'center', color: '#4635B1'}}>GAME MODE</h1>
+          <CountDownWatch onGameOver={handleGameOver} onGameStart={handleGameStart}/>
+          <StopWatch />
+        </div>
       </div>
     )
   }
