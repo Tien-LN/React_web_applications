@@ -3,7 +3,7 @@ export default function Square({matrix, index, onSquareClick, isSelected}) {
         <div className={`square ${isSelected ? 'selected' : ''}`} 
              onClick={onSquareClick}
             >
-             <img className={matrix[index] ? 'show' : 'hide'} src={`./pictures/p${matrix[index]}.png`}></img>
+             <img className={matrix[index] ? '' : 'hide'} src={`./pictures/p${matrix[index]}.png`} alt=""></img>
         </div>
     )
 }
