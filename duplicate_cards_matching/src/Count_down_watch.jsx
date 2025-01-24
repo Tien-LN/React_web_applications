@@ -1,9 +1,10 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
-export function CountDownWatch({onGameOver, onGameStart}) {
+export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
   const [selectedTime, setSelectedTime] = useState(60);
   const [currentTime, setCurrentTime] = useState(null);
   const [timerId, setTimerId] = useState(null);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const formatTime = (seconds) => {
     if(seconds === 'infinity') return 'No Time Limit';
@@ -12,10 +13,19 @@ export function CountDownWatch({onGameOver, onGameStart}) {
     return `${minutes}:${remainingSeconds.toString().padStart(2,'0')}`;
   }
 
+  useEffect(() => {
+    if (GameOver) {
+      clearInterval(timerId);
+    }
+
+  }, [GameOver]);
+
   const startTimer = () => {
-    if(timerId) clearInterval(timerId);
-    
-    if(selectedTime === 'infinity') {
+    if (timerId) {
+      clearInterval(timerId);
+    }
+
+    if (selectedTime === 'infinity') {
       setCurrentTime('infinity');
       onGameStart();
       return;
@@ -27,10 +37,10 @@ export function CountDownWatch({onGameOver, onGameStart}) {
 
     const newTimerId = setInterval(() => {
       setCurrentTime((prevTime) => {
-        if(prevTime <= 1) {
+        if (prevTime <= 0) {
           clearInterval(newTimerId);
           onGameOver();
-          return 0;
+          return prevTime;
         }
         return prevTime - 1;
       });
