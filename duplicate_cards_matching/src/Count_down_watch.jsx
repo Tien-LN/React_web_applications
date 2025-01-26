@@ -4,7 +4,6 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
   const [selectedTime, setSelectedTime] = useState(60);
   const [currentTime, setCurrentTime] = useState(null);
   const [timerId, setTimerId] = useState(null);
-  const [isGameOver, setIsGameOver] = useState(false);
 
   const formatTime = (seconds) => {
     if(seconds === 'infinity') return 'No Time Limit';
@@ -52,7 +51,7 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
   
   return (
     <div className='countdown-watch'>
-      <h1>Count Down Watch</h1>
+      <h1>Count Down Watch ⌚</h1>
       <div className = "countdown-watch-display">
         {currentTime !== null ? (
           <span className='TimerDisplay'>{formatTime(currentTime)}</span>
