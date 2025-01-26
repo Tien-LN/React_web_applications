@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 
-export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
+export function CountDownWatch({GameOver ,onGameOver, onGameStart, runningWatch}) {
   const [selectedTime, setSelectedTime] = useState(60);
   const [currentTime, setCurrentTime] = useState(null);
   const [timerId, setTimerId] = useState(null);
@@ -26,7 +26,7 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
 
     if (selectedTime === 'infinity') {
       setCurrentTime('infinity');
-      onGameStart();
+      onGameStart(2);
       return;
     }
 
@@ -58,6 +58,7 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
         ) : (
           <div style={{width: '100%', display: 'flex', justifyContent: 'space-between'}}>
             <select
+              disabled={runningWatch}
               className="countdown-watch-selections"
               value={selectedTime}
               onChange={(e) => setSelectedTime(e.target.value)}
@@ -74,7 +75,7 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart}) {
               <option value="600">10 minutes</option>
               <option value="infinity">No Time Limit</option>
             </select>
-            <button style={{width : '30%', height: '30px', borderRadius: '5px', border: 'none'}} onClick={startTimer}>Start</button>
+            <button disabled={runningWatch} style={{width : '30%', height: '30px', borderRadius: '5px', border: 'none'}} onClick={startTimer}>Start</button>
           </div>
         )}
       </div>    

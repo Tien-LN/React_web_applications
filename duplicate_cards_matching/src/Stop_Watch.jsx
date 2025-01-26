@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
 
-export default function StopWatch({GameOver , onGameStart}) {
+export default function StopWatch({GameOver , onGameStart, runningWatch}) {
 
   const [currentTime, setCurrentTime] = useState(0);
   const [timerId, setTimerId] = useState(null);
@@ -21,7 +21,7 @@ export default function StopWatch({GameOver , onGameStart}) {
   
   const handleplay = () => {
     setIsPlaying(true);
-    onGameStart();
+    onGameStart(1);
     const newTimerId = setInterval(() => {
       setCurrentTime(prevTime => prevTime + 1);
     }, 1000);
@@ -49,8 +49,8 @@ export default function StopWatch({GameOver , onGameStart}) {
           <h1>Stop Watch ⏱️</h1>
           <span className="TimerDisplay" style={{width: '80%'}}>{formatTime(currentTime)}</span>
           <div className="buttons">
-            <button className="btn" onClick={ isPlaying ? handlePause : handleplay}>{ isPlaying ? "⏸️" : "▶️" }</button>
-            <button className="btn" onClick={handleReset}>🔄️</button>
+            <button disabled={runningWatch} className="btn" onClick={ isPlaying ? handlePause : handleplay}>{ isPlaying ? "⏸️" : "▶️" }</button>
+            <button disabled={runningWatch} className="btn" onClick={handleReset}>🔄️</button>
           </div>
         </div>
     )
