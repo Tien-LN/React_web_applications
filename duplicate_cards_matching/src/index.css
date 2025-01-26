@@ -132,3 +132,28 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.gameOverBoard {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameOverBoard h1 {
+    font-size: 4em;
+}
+
+.gameOverBoard img {
+    width: 40%;
+    margin-bottom: 20px;
+}
+
+.gameOverBoard button {
+    height: 30px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+}

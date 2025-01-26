@@ -3,6 +3,8 @@
     import Square from './Square'
     import {CountDownWatch} from './Count_down_watch'
     import StopWatch from './Stop_Watch'
+    import WinningBoard from './WinningBoard'
+    import LosingBoard from './LosingBoard'
     
     function App() {
       const [imgIndex, setImgIndex] = useState([]);
@@ -10,7 +12,7 @@
       const [squaresLeft, setSquaresLeft] = useState(10);
       const [isGameOver, setIsGameOver] = useState(false);
       const [runningWatch, setRunningWatch] = useState(0); // 0 : both enable, 1 : only stopwatch, 2 : only cdwatch, 3 : both disabled
-
+      const [isWinning, setIsWinning] = useState(null);
       
       const handleGameStart = (val) => {
         setSquaresLeft(10);
@@ -39,14 +41,15 @@
             const newSquaresLeft = squaresLeft - 2;
             setSquaresLeft(newSquaresLeft);
             if(newSquaresLeft === 0) {
-              handleGameOver();
+              handleGameOver(true);
             }
           } 
           setSelectedIndex(null);
         }
       }
 
-      const handleGameOver = () => {
+      const handleGameOver = (val) => {
+        setIsWinning(val);
         setIsGameOver(true);
         setRunningWatch(3);
       }
@@ -55,7 +58,7 @@
         <div className='App'>
           <div className='Board'>
             {isGameOver ? (
-              <h1 className='game-over'>Game Over</h1>
+              isWinning ? <WinningBoard /> : <LosingBoard />
             ) : (
               imgIndex.map((value, i) => (
                 <Square

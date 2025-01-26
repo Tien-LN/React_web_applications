@@ -36,9 +36,9 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart, runningWatch}
 
     const newTimerId = setInterval(() => {
       setCurrentTime((prevTime) => {
-        if (prevTime <= 0) {
+        if (prevTime <= 50) {
           clearInterval(newTimerId);
-          onGameOver();
+          onGameOver(false);
           return prevTime;
         }
         return prevTime - 1;
