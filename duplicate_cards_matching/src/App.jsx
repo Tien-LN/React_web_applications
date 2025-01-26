@@ -68,7 +68,7 @@
           <div className='game-mode'>
             <h1 style={{textAlign: 'center', color: '#4635B1'}}>GAME MODE</h1>
             <CountDownWatch GameOver={isGameOver} onGameOver={handleGameOver} onGameStart={handleGameStart} />
-            <StopWatch />
+            <StopWatch GameOver={isGameOver} onGameStart={handleGameStart}/>
           </div>
         </div>
       )
