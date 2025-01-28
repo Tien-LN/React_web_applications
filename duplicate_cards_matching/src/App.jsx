@@ -9,15 +9,17 @@
     function App() {
       const [imgIndex, setImgIndex] = useState([]);
       const [selectedIndex, setSelectedIndex] = useState(null);
-      const [squaresLeft, setSquaresLeft] = useState(10);
+      const [squaresLeft, setSquaresLeft] = useState(100);
       const [isGameOver, setIsGameOver] = useState(false);
       const [runningWatch, setRunningWatch] = useState(0); // 0 : both enable, 1 : only stopwatch, 2 : only cdwatch, 3 : both disabled
       const [isWinning, setIsWinning] = useState(null);
+      const [isGameReset, setIsGameReset] = useState(false);
       
       const handleGameStart = (val) => {
-        setSquaresLeft(10);
+        setSquaresLeft(100);
         setRunningWatch(val);
-        const newImgIndex = Array.from({length:10}, (_,i) => (Math.floor(i/2) + 1));
+        setIsGameReset(false);
+        const newImgIndex = Array.from({length:100}, (_,i) => (Math.floor(i/2) + 1));
         for(let i = newImgIndex.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [newImgIndex[i], newImgIndex[j]] = [newImgIndex[j], newImgIndex[i]];
@@ -54,11 +56,18 @@
         setRunningWatch(3);
       }
 
+      const handleGameReset = () => {
+          setIsGameReset(true);
+          setRunningWatch(0);
+          setIsGameOver(false);
+          setImgIndex([]);
+      }
+
       return (
         <div className='App'>
           <div className='Board'>
             {isGameOver ? (
-              isWinning ? <WinningBoard /> : <LosingBoard />
+              isWinning ? <WinningBoard resetGame={handleGameReset} /> : <LosingBoard resetGame={handleGameReset} />
             ) : (
               imgIndex.map((value, i) => (
                 <Square
@@ -73,8 +82,8 @@
           </div>
           <div className='game-mode'>
             <h1 style={{textAlign: 'center', color: '#4635B1'}}>GAME MODE</h1>
-            <CountDownWatch GameOver={isGameOver} onGameOver={handleGameOver} onGameStart={handleGameStart} runningWatch={runningWatch != 2 && runningWatch != 0} />
-            <StopWatch GameOver={isGameOver} onGameStart={handleGameStart} runningWatch={runningWatch != 1 && runningWatch != 0} />
+            <CountDownWatch GameOver={isGameOver} onGameOver={handleGameOver} onGameStart={handleGameStart} runningWatch={runningWatch != 2 && runningWatch != 0} isGameReset={isGameReset}/>
+            <StopWatch GameOver={isGameOver} onGameStart={handleGameStart} runningWatch={runningWatch != 1 && runningWatch != 0} isGameReset={isGameReset}/>
           </div>
         </div>
       )

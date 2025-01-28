@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react"
 
-export default function StopWatch({GameOver , onGameStart, runningWatch}) {
+export default function StopWatch({GameOver , onGameStart, runningWatch, isGameReset}) {
 
   const [currentTime, setCurrentTime] = useState(0);
   const [timerId, setTimerId] = useState(null);
@@ -19,6 +19,13 @@ export default function StopWatch({GameOver , onGameStart, runningWatch}) {
     }
   }, [GameOver])
   
+  useEffect(() => {
+    if(isGameReset) {
+      setCurrentTime(0);
+      setTimerId(null);
+      setIsPlaying(false);
+    }
+  }, [isGameReset])
   const handleplay = () => {
     setIsPlaying(true);
     onGameStart(1);

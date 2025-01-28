@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 
-export function CountDownWatch({GameOver ,onGameOver, onGameStart, runningWatch}) {
-  const [selectedTime, setSelectedTime] = useState(60);
+export function CountDownWatch({GameOver ,onGameOver, onGameStart, runningWatch, isGameReset}) {
+  const [selectedTime, setSelectedTime] = useState("60");
   const [currentTime, setCurrentTime] = useState(null);
   const [timerId, setTimerId] = useState(null);
 
@@ -18,6 +18,14 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart, runningWatch}
     }
 
   }, [GameOver]);
+
+  useEffect(() => {
+    if(isGameReset) {
+      setSelectedTime("60");
+      setCurrentTime(null);
+      setTimerId(null);
+    }
+  }, [isGameReset])
 
   const startTimer = () => {
     if (timerId) {
@@ -36,7 +44,7 @@ export function CountDownWatch({GameOver ,onGameOver, onGameStart, runningWatch}
 
     const newTimerId = setInterval(() => {
       setCurrentTime((prevTime) => {
-        if (prevTime <= 50) {
+        if (prevTime <= 0) {
           clearInterval(newTimerId);
           onGameOver(false);
           return prevTime;
